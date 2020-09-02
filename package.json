@@ -1,0 +1,21 @@
+{
+  "name": "com.siteblade.intl",
+  "version": "1.1.9",
+  "description": "",
+  "author": "Hydroper <HydroperHH@gmail.com>",
+  "homepage": "",
+  "main": "index.js",
+  "type": "module",
+  "browser": {
+    "./loader.nodejs.js": "./loader.browser.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.19.2",
+    "com.siteblade.util": "^1.0.0"
+  }
+}
