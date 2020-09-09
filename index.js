@@ -21,7 +21,7 @@ class Language {
         /**
          * @type {Language.Direction}
          */
-        this.direction = direction;
+        this.direction = Language.Direction(direction);
         /**
          * @type {Language?}
          */
@@ -41,7 +41,9 @@ Language._byId = new Map;
 const LanguageProxy = new Proxy(Language, {
     apply(target, thisArg, argumentsList) {
         let [ id ] = argumentsList;
-        return id instanceof Language ? id : Language._byId.get(id.toLowerCase().replace('_', '-'));
+        if (id instanceof Language) return id;
+        let split = String(id).toLowerCase().replace(/_/g, '-').split('-');
+        return Language._byId.get(split[0] + (split.length > 1 ? '_' + split.slice(1).map(s => s.toUpperCase()).join('_') : ''));
     }
 });
 
@@ -56,496 +58,498 @@ Language.Direction = Enum('Direction', [
 ]);
 
 /** */
-Language.EN_US = new Language('en-us', Language.Direction.LTR);
+Language.EN_US = new Language('en_US', 'ltr');
 
 /** */
-Language.AF = new Language('af', Language.Direction.LTR);
+Language.AF = new Language('af', 'ltr');
 
 /** */
-Language.SQ = new Language('sq', Language.Direction.LTR);
+Language.SQ = new Language('sq', 'ltr');
 
 /** */
-Language.AM = new Language('am', Language.Direction.LTR);
+Language.AM = new Language('am', 'ltr');
 
 /** */
-Language.AR_DZ = new Language('ar-dz', Language.Direction.RTL);
+Language.AR_DZ = new Language('ar_DZ', 'rtl');
 
 /** */
-Language.AR_BH = new Language('ar-bh', Language.Direction.RTL);
+Language.AR_BH = new Language('ar_BH', 'rtl');
 
 /** */
-Language.AR_EG = new Language('ar-eg', Language.Direction.RTL);
+Language.AR_EG = new Language('ar_EG', 'rtl');
 
 /** */
-Language.AR_IQ = new Language('ar-iq', Language.Direction.RTL);
+Language.AR_IQ = new Language('ar_IQ', 'rtl');
 
 /** */
-Language.AR_JO = new Language('ar-jo', Language.Direction.RTL);
+Language.AR_JO = new Language('ar_JO', 'rtl');
 
 /** */
-Language.AR_KW = new Language('ar-kw', Language.Direction.RTL);
+Language.AR_KW = new Language('ar_KW', 'rtl');
 
 /** */
-Language.AR_LB = new Language('ar-lb', Language.Direction.RTL);
+Language.AR_LB = new Language('ar_LB', 'rtl');
 
 /** */
-Language.AR_LY = new Language('ar-ly', Language.Direction.RTL);
+Language.AR_LY = new Language('ar_LY', 'rtl');
 
 /** */
-Language.AR_MA = new Language('ar-ma', Language.Direction.RTL);
+Language.AR_MA = new Language('ar_MA', 'rtl');
 
 /** */
-Language.AR_OM = new Language('ar-om', Language.Direction.RTL);
+Language.AR_OM = new Language('ar_OM', 'rtl');
 
 /** */
-Language.AR_QA = new Language('ar-qa', Language.Direction.RTL);
+Language.AR_QA = new Language('ar_QA', 'rtl');
 
 /** */
-Language.AR_SA = new Language('ar-sa', Language.Direction.RTL);
+Language.AR_SA = new Language('ar_SA', 'rtl');
 
 /** */
-Language.AR_SY = new Language('ar-sy', Language.Direction.RTL);
+Language.AR_SY = new Language('ar_SY', 'rtl');
 
 /** */
-Language.AR_TN = new Language('ar-tn', Language.Direction.RTL);
+Language.AR_TN = new Language('ar_TN', 'rtl');
 
 /** */
-Language.AR_AE = new Language('ar-ae', Language.Direction.RTL);
+Language.AR_AE = new Language('ar_AE', 'rtl');
 
 /** */
-Language.AR_YE = new Language('ar-ye', Language.Direction.RTL);
+Language.AR_YE = new Language('ar_YE', 'rtl');
 
 /** */
-Language.HY = new Language('hy', Language.Direction.LTR);
+Language.HY = new Language('hy', 'ltr');
 
 /** */
-Language.AS = new Language('as', Language.Direction.LTR);
+Language.AS = new Language('as', 'ltr');
 
 /** */
-Language.AZ_AZ = new Language('az-az', Language.Direction.LTR);
+Language.AZ_AZ = new Language('az_AZ', 'ltr');
 
 /** */
-Language.AZ_AZ = new Language('az-az', Language.Direction.LTR);
+Language.AZ_AZ = new Language('az_AZ', 'ltr');
 
 /** */
-Language.EU = new Language('eu', Language.Direction.LTR);
+Language.EU = new Language('eu', 'ltr');
 
 /** */
-Language.BE = new Language('be', Language.Direction.LTR);
+Language.BE = new Language('be', 'ltr');
 
 /** */
-Language.BN = new Language('bn', Language.Direction.LTR);
+Language.BN = new Language('bn', 'ltr');
 
 /** */
-Language.BN = new Language('bn', Language.Direction.LTR);
+Language.BN = new Language('bn', 'ltr');
 
 /** */
-Language.BS = new Language('bs', Language.Direction.LTR);
+Language.BS = new Language('bs', 'ltr');
 
 /** */
-Language.BG = new Language('bg', Language.Direction.LTR);
+Language.BG = new Language('bg', 'ltr');
 
 /** */
-Language.MY = new Language('my', Language.Direction.LTR);
+Language.MY = new Language('my', 'ltr');
 
 /** */
-Language.CA = new Language('ca', Language.Direction.LTR);
+Language.CA = new Language('ca', 'ltr');
 
 /** */
-Language.ZH_CN = new Language('zh-cn', Language.Direction.LTR);
+Language.ZH_CN = new Language('zh_CN', 'ltr');
 
 /** */
-Language.ZH_HK = new Language('zh-hk', Language.Direction.LTR);
+Language.ZH_HK = new Language('zh_HK', 'ltr');
 
 /** */
-Language.ZH_MO = new Language('zh-mo', Language.Direction.LTR);
+Language.ZH_MO = new Language('zh_MO', 'ltr');
 
 /** */
-Language.ZH_SG = new Language('zh-sg', Language.Direction.LTR);
+Language.ZH_SG = new Language('zh_SG', 'ltr');
 
 /** */
-Language.ZH_TW = new Language('zh-tw', Language.Direction.LTR);
+Language.ZH_TW = new Language('zh_TW', 'ltr');
 
 /** */
-Language.HR = new Language('hr', Language.Direction.LTR);
+Language.HR = new Language('hr', 'ltr');
 
 /** */
-Language.CS = new Language('cs', Language.Direction.LTR);
+Language.CS = new Language('cs', 'ltr');
 
 /** */
-Language.DA = new Language('da', Language.Direction.LTR);
+Language.DA = new Language('da', 'ltr');
 
 /** */
-Language.NL_BE = new Language('nl-be', Language.Direction.LTR);
+Language.NL_BE = new Language('nl_BE', 'ltr');
 
 /** */
-Language.NL_NL = new Language('nl-nl', Language.Direction.LTR);
+Language.NL_NL = new Language('nl_NL', 'ltr');
 
 /** */
-Language.EN_AU = new Language('en-au', Language.Direction.LTR);
+Language.EN_AU = new Language('en_AU', 'ltr');
 
 /** */
-Language.EN_BZ = new Language('en-bz', Language.Direction.LTR);
+Language.EN_BZ = new Language('en_BZ', 'ltr');
 
 /** */
-Language.EN_CA = new Language('en-ca', Language.Direction.LTR);
+Language.EN_CA = new Language('en_CA', 'ltr');
 
 /** */
-Language.EN_CB = new Language('en-cb', Language.Direction.LTR);
+Language.EN_CB = new Language('en_CB', 'ltr');
 
 /** */
-Language.EN_GB = new Language('en-gb', Language.Direction.LTR);
+Language.EN_GB = new Language('en_GB', 'ltr');
 
 /** */
-Language.EN_IN = new Language('en-in', Language.Direction.LTR);
+Language.EN_IN = new Language('en_IN', 'ltr');
 
 /** */
-Language.EN_IE = new Language('en-ie', Language.Direction.LTR);
+Language.EN_IE = new Language('en_IE', 'ltr');
 
 /** */
-Language.EN_JM = new Language('en-jm', Language.Direction.LTR);
+Language.EN_JM = new Language('en_JM', 'ltr');
 
 /** */
-Language.EN_NZ = new Language('en-nz', Language.Direction.LTR);
+Language.EN_NZ = new Language('en_NZ', 'ltr');
 
 /** */
-Language.EN_PH = new Language('en-ph', Language.Direction.LTR);
+Language.EN_PH = new Language('en_PH', 'ltr');
 
 /** */
-Language.EN_ZA = new Language('en-za', Language.Direction.LTR);
+Language.EN_ZA = new Language('en_ZA', 'ltr');
 
 /** */
-Language.EN_TT = new Language('en-tt', Language.Direction.LTR);
+Language.EN_TT = new Language('en_TT', 'ltr');
 
 /** */
-Language.ET = new Language('et', Language.Direction.LTR);
+Language.ET = new Language('et', 'ltr');
 
 /** */
-Language.MK = new Language('mk', Language.Direction.LTR);
+Language.MK = new Language('mk', 'ltr');
 
 /** */
-Language.FO = new Language('fo', Language.Direction.LTR);
+Language.FO = new Language('fo', 'ltr');
 
 /** */
-Language.FA = new Language('fa', Language.Direction.LTR);
+Language.FA = new Language('fa', 'ltr');
 
 /** */
-Language.FI = new Language('fi', Language.Direction.LTR);
+Language.FI = new Language('fi', 'ltr');
 
 /** */
-Language.FR_BE = new Language('fr-be', Language.Direction.LTR);
+Language.FR_BE = new Language('fr_BE', 'ltr');
 
 /** */
-Language.FR_CA = new Language('fr-ca', Language.Direction.LTR);
+Language.FR_CA = new Language('fr_CA', 'ltr');
 
 /** */
-Language.FR_FR = new Language('fr-fr', Language.Direction.LTR);
+Language.FR_FR = new Language('fr_FR', 'ltr');
 
 /** */
-Language.FR_LU = new Language('fr-lu', Language.Direction.LTR);
+Language.FR_LU = new Language('fr_LU', 'ltr');
 
 /** */
-Language.FR_CH = new Language('fr-ch', Language.Direction.LTR);
+Language.FR_CH = new Language('fr_CH', 'ltr');
 
 /** */
-Language.GD_IE = new Language('gd-ie', Language.Direction.LTR);
+Language.GD_IE = new Language('gd_IE', 'ltr');
 
 /** */
-Language.GD = new Language('gd', Language.Direction.LTR);
+Language.GD = new Language('gd', 'ltr');
 
 /** */
-Language.DE_AT = new Language('de-at', Language.Direction.LTR);
+Language.DE_AT = new Language('de_AT', 'ltr');
 
 /** */
-Language.DE_DE = new Language('de-de', Language.Direction.LTR);
+Language.DE_DE = new Language('de_DE', 'ltr');
 
 /** */
-Language.DE_LI = new Language('de-li', Language.Direction.LTR);
+Language.DE_LI = new Language('de_LI', 'ltr');
 
 /** */
-Language.DE_LU = new Language('de-lu', Language.Direction.LTR);
+Language.DE_LU = new Language('de_LU', 'ltr');
 
 /** */
-Language.DE_CH = new Language('de-ch', Language.Direction.LTR);
+Language.DE_CH = new Language('de_CH', 'ltr');
 
 /** */
-Language.EL = new Language('el', Language.Direction.LTR);
+Language.EL = new Language('el', 'ltr');
 
 /** */
-Language.GN = new Language('gn', Language.Direction.LTR);
+Language.GN = new Language('gn', 'ltr');
 
 /** */
-Language.GU = new Language('gu', Language.Direction.LTR);
+Language.GU = new Language('gu', 'ltr');
 
 /** */
-Language.HE = new Language('he', Language.Direction.LTR);
+Language.HE = new Language('he', 'ltr');
 
 /** */
-Language.HI = new Language('hi', Language.Direction.LTR);
+Language.HI = new Language('hi', 'ltr');
 
 /** */
-Language.HU = new Language('hu', Language.Direction.LTR);
+Language.HU = new Language('hu', 'ltr');
 
 /** */
-Language.IS = new Language('is', Language.Direction.LTR);
+Language.IS = new Language('is', 'ltr');
 
 /** */
-Language.ID = new Language('id', Language.Direction.LTR);
+Language.ID = new Language('id', 'ltr');
 
 /** */
-Language.IT_IT = new Language('it-it', Language.Direction.LTR);
+Language.IT_IT = new Language('it_IT', 'ltr');
 
 /** */
-Language.IT_CH = new Language('it-ch', Language.Direction.LTR);
+Language.IT_CH = new Language('it_CH', 'ltr');
 
 /** */
-Language.JA = new Language('ja', Language.Direction.LTR);
+Language.JA = new Language('ja', 'ltr');
 
 /** */
-Language.KN = new Language('kn', Language.Direction.LTR);
+Language.KN = new Language('kn', 'ltr');
 
 /** */
-Language.KS = new Language('ks', Language.Direction.LTR);
+Language.KS = new Language('ks', 'ltr');
 
 /** */
-Language.KK = new Language('kk', Language.Direction.LTR);
+Language.KK = new Language('kk', 'ltr');
 
 /** */
-Language.KM = new Language('km', Language.Direction.LTR);
+Language.KM = new Language('km', 'ltr');
 
 /** */
-Language.KO = new Language('ko', Language.Direction.LTR);
+Language.KO = new Language('ko', 'ltr');
 
 /** */
-Language.LO = new Language('lo', Language.Direction.LTR);
+Language.LO = new Language('lo', 'ltr');
 
 /** */
-Language.LA = new Language('la', Language.Direction.LTR);
+Language.LA = new Language('la', 'ltr');
 
 /** */
-Language.LV = new Language('lv', Language.Direction.LTR);
+Language.LV = new Language('lv', 'ltr');
 
 /** */
-Language.LT = new Language('lt', Language.Direction.LTR);
+Language.LT = new Language('lt', 'ltr');
 
 /** */
-Language.MS_BN = new Language('ms-bn', Language.Direction.LTR);
+Language.MS_BN = new Language('ms_BN', 'ltr');
 
 /** */
-Language.MS_MY = new Language('ms-my', Language.Direction.LTR);
+Language.MS_MY = new Language('ms_MY', 'ltr');
 
 /** */
-Language.ML = new Language('ml', Language.Direction.LTR);
+Language.ML = new Language('ml', 'ltr');
 
 /** */
-Language.MT = new Language('mt', Language.Direction.LTR);
+Language.MT = new Language('mt', 'ltr');
 
 /** */
-Language.MI = new Language('mi', Language.Direction.LTR);
+Language.MI = new Language('mi', 'ltr');
 
 /** */
-Language.MR = new Language('mr', Language.Direction.LTR);
+Language.MR = new Language('mr', 'ltr');
 
 /** */
-Language.MN = new Language('mn', Language.Direction.LTR);
+Language.MN = new Language('mn', 'ltr');
 
 /** */
-Language.MN = new Language('mn', Language.Direction.LTR);
+Language.MN = new Language('mn', 'ltr');
 
 /** */
-Language.NE = new Language('ne', Language.Direction.LTR);
+Language.NE = new Language('ne', 'ltr');
 
 /** */
-Language.NO_NO = new Language('no-no', Language.Direction.LTR);
+Language.NO_NO = new Language('no_NO', 'ltr');
 
 /** */
-Language.NO_NO = new Language('no-no', Language.Direction.LTR);
+Language.NO_NO = new Language('no_NO', 'ltr');
 
 /** */
-Language.OR = new Language('or', Language.Direction.LTR);
+Language.OR = new Language('or', 'ltr');
 
 /** */
-Language.PL = new Language('pl', Language.Direction.LTR);
+Language.PL = new Language('pl', 'ltr');
 
 /** */
-Language.PT_BR = new Language('pt-br', Language.Direction.LTR);
+Language.PT_BR = new Language('pt_BR', 'ltr');
 
 /** */
-Language.PT_PT = new Language('pt-pt', Language.Direction.LTR);
+Language.PT_PT = new Language('pt_PT', 'ltr');
 
 /** */
-Language.PA = new Language('pa', Language.Direction.LTR);
+Language.PA = new Language('pa', 'ltr');
 
 /** */
-Language.RM = new Language('rm', Language.Direction.LTR);
+Language.RM = new Language('rm', 'ltr');
 
 /** */
-Language.RO_MO = new Language('ro-mo', Language.Direction.LTR);
+Language.RO_MO = new Language('ro_MO', 'ltr');
 
 /** */
-Language.RO = new Language('ro', Language.Direction.LTR);
+Language.RO = new Language('ro', 'ltr');
 
 /** */
-Language.RU = new Language('ru', Language.Direction.LTR);
+Language.RU = new Language('ru', 'ltr');
 
 /** */
-Language.RU_MO = new Language('ru-mo', Language.Direction.LTR);
+Language.RU_MO = new Language('ru_MO', 'ltr');
 
 /** */
-Language.SA = new Language('sa', Language.Direction.RTL);
+Language.SA = new Language('sa', 'rtl');
 
 /** */
-Language.SR_SP = new Language('sr-sp', Language.Direction.LTR);
+Language.SR_SP = new Language('sr_SP', 'ltr');
 
 /** */
-Language.SR_SP = new Language('sr-sp', Language.Direction.LTR);
+Language.SR_SP = new Language('sr_SP', 'ltr');
 
 /** */
-Language.TN = new Language('tn', Language.Direction.LTR);
+Language.TN = new Language('tn', 'ltr');
 
 /** */
-Language.SD = new Language('sd', Language.Direction.LTR);
+Language.SD = new Language('sd', 'ltr');
 
 /** */
-Language.SI = new Language('si', Language.Direction.LTR);
+Language.SI = new Language('si', 'ltr');
 
 /** */
-Language.SK = new Language('sk', Language.Direction.LTR);
+Language.SK = new Language('sk', 'ltr');
 
 /** */
-Language.SL = new Language('sl', Language.Direction.LTR);
+Language.SL = new Language('sl', 'ltr');
 
 /** */
-Language.SO = new Language('so', Language.Direction.LTR);
+Language.SO = new Language('so', 'ltr');
 
 /** */
-Language.SB = new Language('sb', Language.Direction.LTR);
+Language.SB = new Language('sb', 'ltr');
 
 /** */
-Language.ES_AR = new Language('es-ar', Language.Direction.LTR);
+Language.ES_AR = new Language('es_AR', 'ltr');
 
 /** */
-Language.ES_BO = new Language('es-bo', Language.Direction.LTR);
+Language.ES_BO = new Language('es_BO', 'ltr');
 
 /** */
-Language.ES_CL = new Language('es-cl', Language.Direction.LTR);
+Language.ES_CL = new Language('es_CL', 'ltr');
 
 /** */
-Language.ES_CO = new Language('es-co', Language.Direction.LTR);
+Language.ES_CO = new Language('es_CO', 'ltr');
 
 /** */
-Language.ES_CR = new Language('es-cr', Language.Direction.LTR);
+Language.ES_CR = new Language('es_CR', 'ltr');
 
 /** */
-Language.ES_DO = new Language('es-do', Language.Direction.LTR);
+Language.ES_DO = new Language('es_DO', 'ltr');
 
 /** */
-Language.ES_EC = new Language('es-ec', Language.Direction.LTR);
+Language.ES_EC = new Language('es_EC', 'ltr');
 
 /** */
-Language.ES_SV = new Language('es-sv', Language.Direction.LTR);
+Language.ES_SV = new Language('es_SV', 'ltr');
 
 /** */
-Language.ES_GT = new Language('es-gt', Language.Direction.LTR);
+Language.ES_GT = new Language('es_GT', 'ltr');
 
 /** */
-Language.ES_HN = new Language('es-hn', Language.Direction.LTR);
+Language.ES_HN = new Language('es_HN', 'ltr');
 
 /** */
-Language.ES_MX = new Language('es-mx', Language.Direction.LTR);
+Language.ES_MX = new Language('es_MX', 'ltr');
 
 /** */
-Language.ES_NI = new Language('es-ni', Language.Direction.LTR);
+Language.ES_NI = new Language('es_NI', 'ltr');
 
 /** */
-Language.ES_PA = new Language('es-pa', Language.Direction.LTR);
+Language.ES_PA = new Language('es_PA', 'ltr');
 
 /** */
-Language.ES_PY = new Language('es-py', Language.Direction.LTR);
+Language.ES_PY = new Language('es_PY', 'ltr');
 
 /** */
-Language.ES_PE = new Language('es-pe', Language.Direction.LTR);
+Language.ES_PE = new Language('es_PE', 'ltr');
 
 /** */
-Language.ES_PR = new Language('es-pr', Language.Direction.LTR);
+Language.ES_PR = new Language('es_PR', 'ltr');
 
 /** */
-Language.ES_ES = new Language('es-es', Language.Direction.LTR);
+Language.ES_ES = new Language('es_ES', 'ltr');
 
 /** */
-Language.ES_UY = new Language('es-uy', Language.Direction.LTR);
+Language.ES_UY = new Language('es_UY', 'ltr');
 
 /** */
-Language.ES_VE = new Language('es-ve', Language.Direction.LTR);
+Language.ES_VE = new Language('es_VE', 'ltr');
 
 /** */
-Language.SW = new Language('sw', Language.Direction.LTR);
+Language.SW = new Language('sw', 'ltr');
 
 /** */
-Language.SV_FI = new Language('sv-fi', Language.Direction.LTR);
+Language.SV_FI = new Language('sv_FI', 'ltr');
 
 /** */
-Language.SV_SE = new Language('sv-se', Language.Direction.LTR);
+Language.SV_SE = new Language('sv_SE', 'ltr');
 
 /** */
-Language.TG = new Language('tg', Language.Direction.LTR);
+Language.TG = new Language('tg', 'ltr');
 
 /** */
-Language.TA = new Language('ta', Language.Direction.LTR);
+Language.TA = new Language('ta', 'ltr');
 
 /** */
-Language.TT = new Language('tt', Language.Direction.LTR);
+Language.TT = new Language('tt', 'ltr');
 
 /** */
-Language.TE = new Language('te', Language.Direction.LTR);
+Language.TE = new Language('te', 'ltr');
 
 /** */
-Language.TH = new Language('th', Language.Direction.LTR);
+Language.TH = new Language('th', 'ltr');
 
 /** */
-Language.BO = new Language('bo', Language.Direction.LTR);
+Language.BO = new Language('bo', 'ltr');
 
 /** */
-Language.TS = new Language('ts', Language.Direction.LTR);
+Language.TS = new Language('ts', 'ltr');
 
 /** */
-Language.TR = new Language('tr', Language.Direction.LTR);
+Language.TR = new Language('tr', 'ltr');
 
 /** */
-Language.TK = new Language('tk', Language.Direction.LTR);
+Language.TK = new Language('tk', 'ltr');
 
 /** */
-Language.UK = new Language('uk', Language.Direction.LTR);
+Language.UK = new Language('uk', 'ltr');
 
 /** */
-Language.UR = new Language('ur', Language.Direction.LTR);
+Language.UR = new Language('ur', 'ltr');
 
 /** */
-Language.UZ_UZ = new Language('uz-uz', Language.Direction.LTR);
+Language.UZ_UZ = new Language('uz_UZ', 'ltr');
 
 /** */
-Language.UZ_UZ = new Language('uz-uz', Language.Direction.LTR);
+Language.UZ_UZ = new Language('uz_UZ', 'ltr');
 
 /** */
-Language.VI = new Language('vi', Language.Direction.LTR);
+Language.VI = new Language('vi', 'ltr');
 
 /** */
-Language.CY = new Language('cy', Language.Direction.LTR);
+Language.CY = new Language('cy', 'ltr');
 
 /** */
-Language.XH = new Language('xh', Language.Direction.LTR);
+Language.XH = new Language('xh', 'ltr');
 
 /** */
-Language.YI = new Language('yi', Language.Direction.LTR);
+Language.YI = new Language('yi', 'ltr');
 
 /** */
-Language.ZU = new Language('zu', Language.Direction.LTR);
+Language.ZU = new Language('zu', 'ltr');
 
 /**
  * @description Defines constants for message genders.
  */
 const Gender = Enum('Gender', [
+
     'MALE',
+
     'FEMALE',
 ]);
 
@@ -574,7 +578,8 @@ export class Translator {
         options.assets = options.assets || {};
         this._assetsPath = String(options.assets.path || '');
         this._assetsRoots = options.assets.roots || [];
-        this._assetsLoader = options.assets.loaderType == 'http' ? httpResourceLoader : fileSystemResourceLoader;
+        var loaderType = LoaderType(options.assets.loaderType);
+        this._assetsLoader = loaderType == 'http' ? httpResourceLoader : fileSystemResourceLoader;
         this._assetsCleaner = true;
     }
 
@@ -698,6 +703,14 @@ export class Translator {
         r[idSplit[idSplit.length - 1]] = data;
     }
 }
+
+/** */
+export const LoaderType = Enum('LoaderType', [
+
+    'HTTP',
+
+    'FILE_SYSTEM',
+]);
 
 /**
  * @description HTTP resource loader.
