@@ -33,12 +33,9 @@ import { Gender } from 'com.siteblade.intl';
 const t = translator.t.bind(translator);
 
 console.log(t('common.messageId'));
-
 console.log(t('common.parameterized', { x: 'foo' }));
-
-console.log(t('common.contextual', null, Gender.MALE));
-
-console.log(t('common.quantified', null, 10));
+console.log(t('common.contextual', Gender.MALE));
+console.log(t('common.quantified', 10));
 ```
 
 Example resource:
@@ -46,27 +43,28 @@ Example resource:
 ```json
 {
     "messageId": "Some message",
-
     "parameterized": "Here: $x",
-
     "contextualMale": "Male message",
-
     "contextualMale": "Female message",
-
     "quantifiedEmpty": "$amount: empty",
-
     "quantifiedSingle": "$amount: single",
-
     "quantifiedPlural": "$amount: plural"
 }
 ```
 
-### Server applications
+### Clone
 
-In server applications, it's convenient to clone Translator instances and to disable the assets cleaner.
+When cloning Translator instances, it's recommended to set the `assets.clean` option to false.
 
-To clone a Translator, you can use the Translator.clone() method, which will return an object that shares the same assets dictionary with the original object:
+To clone a Translator, you can use the Translator.clone() method, which will return an object that shares the same asset storage with the original object:
 
 ```javascript
 var tClone = translator.clone();
+```
+
+### State extraction
+
+```javascript
+let state = translator.getState();
+translator.setState(state);
 ```

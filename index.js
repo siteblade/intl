@@ -547,9 +547,7 @@ Language.ZU = new Language('zu', 'ltr');
  * @description Defines constants for message genders.
  */
 const Gender = Enum('Gender', [
-
     'MALE',
-
     'FEMALE',
 ]);
 
@@ -608,6 +606,24 @@ export class Translator {
         await this.loadAssets();
     }
 
+    getState() {
+        if (!this._language)
+            return null;
+        let r = {
+            lang: this._language.toString(),
+            langAssets: {},
+        };
+        for (let [k, v] of this._assets)
+            r.langAssets[k.toString()] = v;
+        return r;
+    }
+
+    setState(state) {
+        this._language = LanguageProxy(state.lang);
+        for (let k in state.langAssets)
+            this._assets[LanguageProxy(k)] = state.langAssets[k];
+    }
+
     /**
      * @description Loads language resources.
      */
@@ -656,8 +672,7 @@ export class Translator {
      * 
      * @returns {Translator}
      */
-    clone()
-    {
+    clone() {
         let t = new Translator;
         t._assetsPath = this._assetsPath;
         t._assetsRoots = this._assetsRoots.slice(0);
@@ -706,9 +721,7 @@ export class Translator {
 
 /** */
 export const LoaderType = Enum('LoaderType', [
-
     'HTTP',
-
     'FILE_SYSTEM',
 ]);
 
