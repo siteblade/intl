@@ -710,7 +710,7 @@ export class Translator {
     _applyMessage(message, variables, gender, amount) {
         if (typeof amount == 'number') {
             variables = variables || {};
-            variables.amount = option;
+            variables.amount = amount;
         }
         let r = message;
         if (variables) {
