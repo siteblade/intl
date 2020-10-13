@@ -643,25 +643,36 @@ export class Translator {
      * @param {...any} rest 
      * @returns {String}
      */
-    t(id, variables = undefined, option = undefined) {
+    t(id, ...options) {
+        let variables, gender, amount;
+
+        for (let option of options) {
+            if (option.constructor == Object)
+                variables = option;
+            else if (typeof option == 'number')
+                amount = option;
+            else if (option instanceof Gender)
+                gender = option;
+        }
+
         if (!this._language)
             return id;
 
-        if (typeof option == 'number')
-            id += option > 0 ? 'Plural' : option == 0 ? 'Empty' : 'Single';
-        else if (option instanceof Gender)
-            id += option == Gender.MALE ? 'Male' : 'Female';
+        if (typeof amount == 'number')
+            id += amount > 0 ? 'Plural' : amount == 0 ? 'Empty' : 'Single';
+        else if (gender instanceof Gender)
+            id += gender == Gender.MALE ? 'Male' : 'Female';
 
         let splitId = id.split('.');
         for (let l = this._language; l; l = l.fallback) {
             let message = this._resolveId(this._assets.get(l), splitId);
             if (message)
-                return this._applyMessage(message, variables, option);
+                return this._applyMessage(message, variables, gender, amount);
         }
         if (this._assets.has(Language.EN_US)) {
             let message = this._resolveId(this._assets.get(Language.EN_US), splitId);
             if (message)
-                return this._applyMessage(message, variables, option);
+                return this._applyMessage(message, variables, gender, amount);
         }
         return id;
     }
@@ -696,8 +707,8 @@ export class Translator {
         return typeof r == 'string' ? r : null;
     }
 
-    _applyMessage(message, variables, option) {
-        if (typeof option == 'number') {
+    _applyMessage(message, variables, gender, amount) {
+        if (typeof amount == 'number') {
             variables = variables || {};
             variables.amount = option;
         }
