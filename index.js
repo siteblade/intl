@@ -621,7 +621,7 @@ export class Translator {
     setState(state) {
         this._language = LanguageProxy(state.lang);
         for (let k in state.langAssets)
-            this._assets[LanguageProxy(k)] = state.langAssets[k];
+            this._assets.set(LanguageProxy(k), state.langAssets[k]);
     }
 
     /**
